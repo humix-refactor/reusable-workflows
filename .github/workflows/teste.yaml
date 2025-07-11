@@ -1,0 +1,10 @@
+name: Workflow Teste
+
+on:
+  workflow_dispatch
+
+jobs:
+  teste:
+    runs_on: ubuntu-latest
+    steps: 
+      - run: echo "Olá!"
