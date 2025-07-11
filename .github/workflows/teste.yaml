@@ -7,4 +7,13 @@ jobs:
   teste:
     runs-on: ubuntu-latest
     steps: 
+      - name: Primeiro teste
       - run: echo "Olá!"
+
+      - name: Gravando variáveis de ambiente
+      - run: echo "TESTE=teste" >> $GITHUB_ENV
+
+      - name: Recuperando variáveis de ambiente
+      - run: echo $TESTE
+
+      
