@@ -32,4 +32,4 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- Tempo de execução: $(date)" >> $GITHUB_STEP_SUMMARY
           echo "- Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Valor da variável valor_salvo: ${{ needs.teste.outputs.valor_salvo }}""
+          echo "- Valor da variável valor_salvo: ${{ needs.teste.outputs.valor_salvo }}"
