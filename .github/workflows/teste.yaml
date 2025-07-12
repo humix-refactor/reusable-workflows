@@ -7,7 +7,7 @@ jobs:
   teste:
     runs-on: ubuntu-latest
     outputs:
-      valor_salvo: ${{ steps.definir.outputs.valor }}
+      valor_salvo: ${{ steps.definir.outputs.valor_salvo }}
     steps: 
       - name: Primeiro teste
         run: echo "Olá!"
@@ -20,13 +20,11 @@ jobs:
 
       - name: Salvando variável para OUTPUT
         id: definir
-        run: echo "valor=1234" >> $GITHUB_OUTPUT
-        
-  job2:
-    needs: teste
+        run: echo "valor_salvo=1234" >> $GITHUB_OUTPUT
+   
+  teste_2:
     runs-on: ubuntu-latest
+    needs: teste
     steps:
-      - name: Recupera valor do OUTPUT
-        run: echo "Valor do primeiro job foi: ${{ needs.teste.outputs.valor_salvo }}"
-
-      
+      - name: Recupera valor do output
+        run: echo "Valor do output foi: ${{ needs.teste.outputs.valor_salvo }}"
