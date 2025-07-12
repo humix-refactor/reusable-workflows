@@ -25,3 +25,11 @@ jobs:
     steps:
       - name: Recupera valor do output
         run: echo "Valor do output foi ${{ needs.teste.outputs.valor_salvo }}"
+        
+      - name: Adiciona conteúdo ao summary
+        run: |
+          echo "## 🚀 Finalizado com sucesso!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Tempo de execução: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "- Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Valor da variável valor_salvo: " + "${{ needs.teste.outputs.valor_salvo }}""
