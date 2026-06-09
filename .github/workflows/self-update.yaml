@@ -31,7 +31,7 @@ jobs:
           mkdir -p .github/workflows
 
           rsync -av --delete \
-            templates/reusable-callers \
+            templates/reusable-callers/ \
             .github/workflows/
 
       - name: Commit changes
