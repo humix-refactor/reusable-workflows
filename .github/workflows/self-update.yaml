@@ -23,6 +23,7 @@ jobs:
         with:
           repository: humix-refactor/reusable-workflows
           path: templates
+          submodules: false
 
       
       - name: Atualizar workflows
@@ -34,6 +35,7 @@ jobs:
             .github/workflows/
 
       - name: Criar Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_PAT }}
@@ -42,8 +44,15 @@ jobs:
           delete-branch: true
           title: "chore: sync workflows from templates"
           body: |
-            Atualização automática dos workflows provenientes do repositório de templates.
-
-            Fonte:
-            - humix-refactor/reusable-workflows
+            Sync automático de workflows
           base: main
+
+      - name: Habilitar auto-merge
+        if: steps.cpr.outputs.pull-request-number
+        run: |
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
+            --merge \
+            --auto
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          
