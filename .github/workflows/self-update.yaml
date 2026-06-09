@@ -36,7 +36,7 @@ jobs:
       - name: Criar Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ github.token }}
           commit-message: "chore: sync workflows from templates"
           branch: automation/sync-workflows
           delete-branch: true
