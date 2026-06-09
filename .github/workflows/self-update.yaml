@@ -1,0 +1,54 @@
+name: Repo Self-Update
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  repo-self-update:
+    name: Repo SelfUpdate
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout do repositório da aplicação
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout do repositório de templates
+        uses: actions/checkout@v4
+        with:
+          repository: humix-refactor/reusable-workflows
+          path: templates
+          submodules: false
+
+      
+      - name: Atualizar workflows
+        run: |
+          mkdir -p .github/workflows
+
+          rsync -av --delete \
+            templates/reusable-callers/ \
+            .github/workflows/
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .github/workflows
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: sync workflows from templates"
+
+      - name: Push direto na main
+        run: |
+          git push origin HEAD:main
+          
