@@ -25,14 +25,13 @@ jobs:
           path: templates
 
       
-      - name: Atualizando workflows
+      - name: Atualizar workflows
         run: |
           mkdir -p .github/workflows
 
           rsync -av --delete \
-            templates/workflows/ \
+            templates/.github/workflows/ \
             .github/workflows/
-
 
       - name: Criar Pull Request
         uses: peter-evans/create-pull-request@v7
