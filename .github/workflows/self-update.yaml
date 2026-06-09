@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p .github/workflows
 
-          resync -av - delete \
+          rsync -av --delete \
             templates/workflows/ \
             .github/workflows/
 
