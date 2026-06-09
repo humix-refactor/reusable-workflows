@@ -1,0 +1,50 @@
+name: Repo Self-Update
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  repo-self-update:
+    name: Repo SelfUpdate
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout do repositório da aplicação
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout do repositório de templates
+        uses: actions/checkout@v4
+        with:
+          repository: humix-refactor/reusable-workflows
+          path: templates
+
+      
+      - name: Atualizando workflows
+        run: |
+          mkdir -p .github/workflows
+
+          resync -av - delete \
+            templates/workflows/ \
+            .github/workflows/
+
+
+      - name: Criar Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GH_PAT }}
+          commit-message: "chore: sync workflows from templates"
+          branch: automation/sync-workflows
+          delete-branch: true
+          title: "chore: sync workflows from templates"
+          body: |
+            Atualização automática dos workflows provenientes do repositório de templates.
+
+            Fonte:
+            - humix-refactor/reusable-workflows
+          base: main
