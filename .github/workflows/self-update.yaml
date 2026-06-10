@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.PAT }}
 
       - name: Checkout do repositório de templates
         uses: actions/checkout@v4
@@ -50,5 +51,5 @@ jobs:
 
       - name: Push direto na main
         run: |
-          git push origin HEAD:main
+          git push https://x-access-token:${{ secrets.PAT }}@github.com/humix-refactor/humix-node-api-template.git HEAD:main
           
