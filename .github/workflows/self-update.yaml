@@ -51,5 +51,6 @@ jobs:
 
       - name: Push direto na main
         run: |
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/humix-refactor/humix-node-api-template.git HEAD:main
+          REPO="${{ github.repository }}"
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/$REPO.git HEAD:main
           
