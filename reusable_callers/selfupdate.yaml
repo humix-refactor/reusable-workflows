@@ -11,3 +11,6 @@ jobs:
   self-update:
     uses: humix-refactor/reusable-workflows/.github/workflows/repo-self-update.yml@main
     secrets: inherit
+
+
+    
